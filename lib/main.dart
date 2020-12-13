@@ -46,6 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deleteTask(String id) {
+    setState(() {
+      _tasks.removeWhere((element) => element.id == id);
+    });
+  }
+
   _startAddNewTask(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -63,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           Summary(_tasks),
-          TasksList(_tasks),
+          TasksList(_tasks, _deleteTask),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

@@ -5,13 +5,14 @@ import '../models/task.dart';
 
 class TasksList extends StatelessWidget {
   final List<Task> tasksList;
+  final Function deleteTask;
 
-  TasksList(this.tasksList);
+  TasksList(this.tasksList, this.deleteTask);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 500,
       child: tasksList.isEmpty
           ? Center(
               child: Column(
@@ -92,7 +93,12 @@ class TasksList extends StatelessWidget {
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        color: Colors.red,
+                        onPressed: () => deleteTask(tasksList[index].id),
+                      ),
                     ],
                   ),
                 );
