@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
-class NewTask extends StatelessWidget {
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final timeController = TextEditingController();
-
+class NewTask extends StatefulWidget {
   final Function addNewTask;
 
   NewTask(this.addNewTask);
+
+  @override
+  _NewTaskState createState() => _NewTaskState();
+}
+
+class _NewTaskState extends State<NewTask> {
+  final titleController = TextEditingController();
+
+  final descriptionController = TextEditingController();
+
+  final timeController = TextEditingController();
 
   void submitData() {
     if (titleController.text.isEmpty ||
@@ -16,11 +23,13 @@ class NewTask extends StatelessWidget {
       return;
     }
 
-    addNewTask(
+    widget.addNewTask(
       title: titleController.text,
       description: descriptionController.text,
       time: double.parse(timeController.text),
     );
+
+    Navigator.of(context).pop();
   }
 
   @override
