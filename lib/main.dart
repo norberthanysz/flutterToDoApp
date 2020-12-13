@@ -23,7 +23,16 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("TODO List App"),
       ),
-      body: UserTasks(),
+      body: Column(
+        children: <Widget>[
+          UserTasks(),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
     );
   }
 }

@@ -9,6 +9,20 @@ class NewTask extends StatelessWidget {
 
   NewTask(this.addNewTask);
 
+  void submitData() {
+    if (titleController.text.isEmpty ||
+        descriptionController.text.isEmpty ||
+        timeController.text.isEmpty) {
+      return;
+    }
+
+    addNewTask(
+      title: titleController.text,
+      description: descriptionController.text,
+      time: double.parse(timeController.text),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -31,17 +45,12 @@ class NewTask extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: "Estimation time"),
               controller: timeController,
+              keyboardType: TextInputType.number,
             ),
             FlatButton(
               child: Text("Add Task"),
               textColor: Colors.green,
-              onPressed: () {
-                addNewTask(
-                  title: titleController.text,
-                  description: descriptionController.text,
-                  time: double.parse(timeController.text),
-                );
-              },
+              onPressed: submitData,
             ),
           ],
         ),
