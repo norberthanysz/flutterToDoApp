@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Flutter App",
       theme: ThemeData(
-        primaryColor: Color(0xff79cbb8),
-        accentColor: Color(0xff500472),
+        primarySwatch: Colors.blueGrey,
+        accentColor: Colors.deepPurple,
       ),
       home: MyHomePage(),
     );
@@ -29,30 +29,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Task> _tasks = [
-    // Task(
-    //   id: "1",
-    //   title: "Task1",
-    //   description: "Description to task1",
-    //   time: 0.5,
-    //   date: DateTime.now(),
-    // ),
-    // Task(
-    //   id: "2",
-    //   title: "Task2",
-    //   description: "Description to task2",
-    //   time: 2,
-    //   date: DateTime.now(),
-    // ),
-  ];
+  final List<Task> _tasks = [];
 
-  void _addNewTask({String title, String description, double time}) {
+  void _addNewTask(
+      {String title, String description, double time, DateTime date}) {
     final newTask = Task(
       id: DateTime.now().toString(),
       title: title,
       description: description,
       time: time,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -72,12 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "TODO List App",
-          style: TextStyle(
-            color: Theme.of(context).accentColor,
-          ),
-        ),
+        title: Text("TODO List App"),
       ),
       body: Column(
         children: <Widget>[

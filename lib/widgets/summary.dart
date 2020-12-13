@@ -11,10 +11,8 @@ class Summary extends StatelessWidget {
     double totalHours = 0;
 
     for (var i = 0; i < _tasks.length; i++) {
-      if ((_tasks[i].date.day >= DateTime.now().day &&
-              _tasks[i].date.day <= (DateTime.now().day + 5)) &&
-          _tasks[i].date.month == DateTime.now().month &&
-          _tasks[i].date.year == DateTime.now().year) {
+      var today = DateTime.now();
+      if (_tasks[i].date.isBefore(today.add(Duration(days: 6)))) {
         totalHours += _tasks[i].time;
       }
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTask extends StatefulWidget {
   final Function addNewTask;
@@ -11,15 +12,15 @@ class NewTask extends StatefulWidget {
 
 class _NewTaskState extends State<NewTask> {
   final titleController = TextEditingController();
-
   final descriptionController = TextEditingController();
-
   final timeController = TextEditingController();
+  DateTime _selectedDate;
 
-  void submitData() {
+  void _submitData() {
     if (titleController.text.isEmpty ||
         descriptionController.text.isEmpty ||
-        timeController.text.isEmpty) {
+        timeController.text.isEmpty ||
+        _selectedDate == null) {
       return;
     }
 
@@ -27,9 +28,28 @@ class _NewTaskState extends State<NewTask> {
       title: titleController.text,
       description: descriptionController.text,
       time: double.parse(timeController.text),
+      date: _selectedDate,
     );
 
     Navigator.of(context).pop();
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2021),
+    ).then((value) => {
+          if (value != null)
+            {
+              setState(
+                () {
+                  _selectedDate = value;
+                },
+              ),
+            },
+        });
   }
 
   @override
@@ -56,10 +76,32 @@ class _NewTaskState extends State<NewTask> {
               controller: timeController,
               keyboardType: TextInputType.number,
             ),
-            FlatButton(
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    _selectedDate == null
+                        ? "No Date Chosen!"
+                        : "Picked date: ${DateFormat("dd-MM-yyyy").format(_selectedDate)}",
+                  ),
+                ),
+                FlatButton(
+                  textColor: Theme.of(context).primaryColor,
+                  child: Text(
+                    "Choose Date",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: _presentDatePicker,
+                ),
+              ],
+            ),
+            RaisedButton(
               child: Text("Add Task"),
-              textColor: Colors.green,
-              onPressed: submitData,
+              textColor: Colors.white,
+              color: Theme.of(context).primaryColor,
+              onPressed: _submitData,
             ),
           ],
         ),
