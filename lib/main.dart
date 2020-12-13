@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './widgets/summary.dart';
 import './widgets/tasksList.dart';
 import './widgets/newTask.dart';
 import './models/task.dart';
@@ -71,10 +72,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("TODO List App"),
+        title: Text(
+          "TODO List App",
+          style: TextStyle(
+            color: Theme.of(context).accentColor,
+          ),
+        ),
       ),
       body: Column(
         children: <Widget>[
+          Summary(_tasks),
           TasksList(_tasks),
         ],
       ),

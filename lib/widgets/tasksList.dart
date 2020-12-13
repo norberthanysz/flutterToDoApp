@@ -16,7 +16,13 @@ class TasksList extends StatelessWidget {
           ? Center(
               child: Column(
                 children: <Widget>[
-                  Image.asset('assets/images/empty_box.png'),
+                  Image.asset(
+                    'assets/images/empty_box.png',
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     "No tasks to do!",
                     textAlign: TextAlign.center,
@@ -34,20 +40,22 @@ class TasksList extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Text(
-                          "${tasksList[index].time} h",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Theme.of(context).primaryColor,
+                        margin: EdgeInsets.all(15),
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Theme.of(context).primaryColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: FittedBox(
+                              child: Text(
+                                "${tasksList[index].time} h",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -75,7 +83,8 @@ class TasksList extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            DateFormat.yMd().format(tasksList[index].date),
+                            DateFormat("dd-MM-yyyy")
+                                .format(tasksList[index].date),
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
