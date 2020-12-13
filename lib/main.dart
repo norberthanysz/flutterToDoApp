@@ -13,6 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Flutter App",
+      theme: ThemeData(
+        primaryColor: Color(0xff79cbb8),
+        accentColor: Color(0xff500472),
+      ),
       home: MyHomePage(),
     );
   }
@@ -25,20 +29,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Task> _tasks = [
-    Task(
-      id: "1",
-      title: "Task1",
-      description: "Description to task1",
-      time: 0.5,
-      date: DateTime.now(),
-    ),
-    Task(
-      id: "2",
-      title: "Task2",
-      description: "Description to task2",
-      time: 2,
-      date: DateTime.now(),
-    ),
+    // Task(
+    //   id: "1",
+    //   title: "Task1",
+    //   description: "Description to task1",
+    //   time: 0.5,
+    //   date: DateTime.now(),
+    // ),
+    // Task(
+    //   id: "2",
+    //   title: "Task2",
+    //   description: "Description to task2",
+    //   time: 2,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addNewTask({String title, String description, double time}) {
