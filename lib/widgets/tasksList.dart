@@ -12,7 +12,6 @@ class TasksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
       child: tasksList.isEmpty
           ? Center(
               child: Column(

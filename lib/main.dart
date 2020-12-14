@@ -62,14 +62,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text("TODO List App"),
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text("TODO List App"),
-      ),
+      appBar: appBar,
       body: Column(
         children: <Widget>[
-          Summary(_tasks),
-          TasksList(_tasks, _deleteTask),
+          Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.3,
+              child: Summary(_tasks)),
+          Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.7,
+              child: TasksList(_tasks, _deleteTask)),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
