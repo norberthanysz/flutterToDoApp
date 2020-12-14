@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import './widgets/summary.dart';
@@ -62,12 +65,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      title: Text("TODO List App"),
-    );
-    return Scaffold(
-      appBar: appBar,
-      body: Column(
+    final PreferredSizeWidget appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: Text("TODO List App"),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                GestureDetector(
+                  child: Icon(CupertinoIcons.add),
+                  onTap: () => _startAddNewTask(context),
+                ),
+              ],
+            ),
+          )
+        : AppBar(
+            title: Text("TODO List App"),
+          );
+    final pageBody = SafeArea(
+      child: Column(
         children: <Widget>[
           Container(
               height: (MediaQuery.of(context).size.height -
@@ -83,11 +98,23 @@ class _MyHomePageState extends State<MyHomePage> {
               child: TasksList(_tasks, _deleteTask)),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _startAddNewTask(context),
-      ),
     );
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: pageBody,
+            navigationBar: appBar,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: pageBody,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: Platform.isAndroid
+                ? FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => _startAddNewTask(context),
+                  )
+                : Container(),
+          );
   }
 }
